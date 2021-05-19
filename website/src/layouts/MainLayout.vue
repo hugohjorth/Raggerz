@@ -4,7 +4,10 @@
       <q-toolbar>
 
         <q-toolbar-title class="text-center text-red bg-white q-pa-sm text-h5">
-          American Bakery
+          <div>
+            <q-btn icon="list" class="float-left q-ml-sm"></q-btn>
+          </div>
+            American Bakery
         </q-toolbar-title>
 
         <div></div>
