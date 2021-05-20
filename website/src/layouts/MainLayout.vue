@@ -13,19 +13,30 @@
         <div></div>
       </q-toolbar>
     </q-header>
-
+    <side-bar-component v-if="show"></side-bar-component>
+    <div v-else></div>
     <q-page-container>
       <router-view />
     </q-page-container>
+
   </q-layout>
 </template>
 
 <script>
+import sideBarComponent from "../components/sideBarComponent.vue"
 export default {
   name: 'MainLayout',
+  components: {
+    sideBarComponent
+  },
   data () {
     return {
-    
+      show: false
+    }
+  },
+  methods: {
+    side () {
+      this.show = true
     }
   }
 }
