@@ -1,10 +1,14 @@
 <template>
   <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-full.svg"
-    >
+    <div class="q-pa-md q-gutter-sm">
+      <q-btn 
+      size="60px"
+      color="yellow" 
+      text-color="black" 
+      label="Beställ Nu!" />
+    </div>
   </q-page>
+ 
 </template>
 
 <script>
