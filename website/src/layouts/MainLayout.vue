@@ -1,11 +1,11 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh Lpr lff">
     <q-header elevated class="bg-indigo q-pa-sm">
       <q-toolbar>
-
-        <q-toolbar-title class="text-center text-red bg-white q-pa-sm text-h5">
+        <q-toolbar-title class="text-center text-red bg-white q-pa-sm text-h4 text-weight-bold">
+            <q-btn icon="menu" class="float-left q-ml-sm" @click="show = !show"></q-btn>
           <div>
-            <q-btn icon="list" class="float-left q-ml-sm"></q-btn>
+            
           </div>
             American Bakery
         </q-toolbar-title>
@@ -13,8 +13,23 @@
         <div></div>
       </q-toolbar>
     </q-header>
-    <side-bar-component v-if="show"></side-bar-component>
-    <div v-else></div>
+
+    <q-drawer
+    v-model="show"
+    show-if-above
+    :width="200"
+    :breakpoint="600"
+    bordered
+    content-class="bg-indigo"
+    >
+      <q-scroll-area class="fit">
+        <div class="q-pa-sm text-center">
+          <li><router-link to="produkter" exact>Produkter</router-link></li>
+          <li><router-link to="staff" exact>Staff</router-link></li>
+        </div>
+      </q-scroll-area>
+    </q-drawer>
+
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -23,21 +38,40 @@
 </template>
 
 <script>
-import sideBarComponent from "../components/sideBarComponent.vue"
 export default {
   name: 'MainLayout',
-  components: {
-    sideBarComponent
-  },
   data () {
     return {
-      show: false
+      show: false,
+      tab: this.$route.path.replace('/', '')
     }
   },
   methods: {
-    side () {
-      this.show = true
+    changePage (route) {
+      if (this.tab !== route) {
+        this.$router.push(route).catch(e => {})
+      }
     }
   }
 }
 </script>
+
+<style>
+li{
+  display: block;
+}
+
+a{
+  color: red;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+a:hover{
+  cursor: pointer;
+}
+
+</style>
