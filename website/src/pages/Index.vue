@@ -1,6 +1,6 @@
 <template>
-  <q-page class="flex flex-center">
-    <div class="q-pa-md q-gutter-sm">
+  <q-page class="flex">
+    <div class="q-pa-md q-gutter-sm fixed-center">
       <q-btn 
       size="60px"
       color="yellow" 
