@@ -5,7 +5,7 @@
       </div>
         <div class="row justify-center">
       <div v-for="cake in cakes" :key=cake.id class="col-5">    <!-- Orkar inte med flexgrid lägre -->
-          <q-card class="my-card q-ma-lg" flat bordered>
+          <q-card class="my-card q-ma-lg" flat bordered >
               <img style="max-height: 250px; width: 100%" :src="cake.image">
               <q-card-section>
                 <div class="text-center text-h5 text-white">{{ cake.title }}</div>
@@ -16,7 +16,9 @@
                   size="15px"
                   color="yellow" 
                   text-color="black" 
-                  label=" Mer info" />
+                  label=" Mer info"
+                  @click="alert = true"
+                  />
                   <q-btn 
                   size="15px"
                   color="yellow" 
@@ -25,10 +27,17 @@
                 </div>
               </q-card-section>
           </q-card>
+          
+          <q-dialog  v-model="alert">
+            <q-card class="my-card no-margin full-height full-width">
+              <q-img
+                style="height: 50%;  "
+                :src="cake.image"
+              />
+            </q-card>
+          </q-dialog>          
       </div>
-
-
-        </div>
+    </div>
   </div>
 </template>
 

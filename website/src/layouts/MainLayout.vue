@@ -25,7 +25,6 @@
       <q-scroll-area class="fit">
         <div class="q-pa-sm text-center column">
           <q-btn color="grey" class="text-black q-mb-sm" @click="changePage('/')">Butik</q-btn>
-          <!-- <q-btn color="grey" class="text-black q-mb-sm" @click="changePage('produkter')">Butik</q-btn> -->
           <q-btn color="grey" class="text-black q-mb-sm" @click="changePage('about')">Om oss</q-btn>
           <q-btn color="grey" class="text-black q-mb-sm" @click="changePage('staff')">Personal</q-btn>
           <q-btn color="grey" class="text-black fixed-bottom q-ma-md q-ml-xl">Logga in</q-btn>
@@ -47,6 +46,7 @@ export default {
     return {
       show: false,
       tab: this.$route.path.replace('/', ''),
+      alert: false
     }
   },
 
