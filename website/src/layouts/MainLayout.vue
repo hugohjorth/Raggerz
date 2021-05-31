@@ -23,36 +23,47 @@
     content-class="bg-indigo"
     >
       <q-scroll-area class="fit">
-        <div class="q-pa-sm text-center">
-          <li><router-link to="produkter" exact>Produkter</router-link></li>
-          <li><router-link to="staff" exact>Staff</router-link></li>
+        <div class="q-pa-sm text-center column">
+          <q-btn color="grey" class="text-black q-mb-sm" @click="changePage('/')">Hem</q-btn>
+          <q-btn color="grey" class="text-black q-mb-sm" @click="changePage('about')">Om oss</q-btn>
+          <q-btn color="grey" class="text-black q-mb-sm" @click="changePage('staff')">Personal</q-btn>
+          <q-btn color="grey" class="text-black fixed-bottom q-ma-md q-ml-xl" @click="loginDia()">Logga in</q-btn>
         </div>
+        
       </q-scroll-area>
     </q-drawer>
-
-    <q-page-container>
-      <router-view />
-    </q-page-container>
+    <!-- <login-dialog :See.sync="login" /> -->
 
   </q-layout>
 </template>
 
 <script>
+// import LoginDialog from '../dialog/loginDialog.vue'
+
 export default {
   name: 'MainLayout',
   data () {
     return {
       show: false,
-      tab: this.$route.path.replace('/', '')
+      tab: this.$route.path.replace('/', ''),
+      login: false
     }
   },
+
+  components: {
+    // LoginDialog
+  },
+
   methods: {
     changePage (route) {
       if (this.tab !== route) {
         this.$router.push(route).catch(e => {})
       }
+    },
+    loginDia () {
+      this.login = true
     }
-  }
+  },
 }
 </script>
 
