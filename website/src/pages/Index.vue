@@ -10,33 +10,54 @@
               <q-card-section>
                 <div class="text-center text-h5 text-white">{{ cake.title }}</div>
                 <div class="text-center text-h7 text-white">{{ cake.previewDescription }}</div>
-                <!-- <div class="text-center text-h9 text-white">{{ cake.detailDescription }}</div> -->
+                <div class="text-center text-h7 text-white">Pris: {{ cake.price }} kr</div>
+
                 <div class="q-pa-md q-gutter-sm">
                   <q-btn 
+                  @click="showAlert(cake.title, cake.price, cake.image, cake.detailDescription)"
                   size="15px"
                   color="yellow" 
                   text-color="black" 
                   label=" Mer info"
-                  @click="alert = true"
                   />
                   <q-btn 
                   size="15px"
                   color="yellow" 
                   text-color="black" 
+                  @click="addToCart(cake.title, cake.price, cake.image, cake.id)"
                   label=" Lägg i kundvagn" />
                 </div>
               </q-card-section>
           </q-card>
-          
-          <q-dialog  v-model="alert">
-            <q-card class="my-card no-margin full-height full-width">
-              <q-img
-                style="height: 50%;  "
-                :src="cake.image"
-              />
-            </q-card>
-          </q-dialog>          
       </div>
+
+      
+    <q-dialog v-model="alert">
+      <q-card>
+        <q-img
+          style="height: 50%;  "
+          :src="alertImage"
+        />
+
+        <q-card-section class="q-pt-xs">
+          <div
+            class="text-h4 q-mt-sm q-mb-lg"
+            vertical
+            align="center"
+          >
+            {{ alertTitle }}
+          </div>
+          <div class="text-h7 text-black">
+            {{ alertDescription }}
+          </div>
+          <div
+            class="text-h3 q-mt-lg"
+            vertical
+            align="center"
+          >{{ alertPrice }}kr</div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
     </div>
   </div>
 </template>
@@ -44,10 +65,31 @@
 <script>
 import axios from 'axios'
 
+
 export default {
   data () {
     return {
-        cakes: null
+        cakes: null,
+        alert: false,
+        alertTitle: "",
+        alertPrice: "",
+        alertImage: "",
+        alertDescription: ""
+    }
+  },
+  methods: {
+    showAlert(title, price, image, desc) {
+      this.alert = true
+      this.alertTitle = title
+      this.alertPrice = price
+      this.alertImage = image
+      this.alertDescription = desc
+    },
+    addToCart(title, price, image, id) {
+      if(!this.$store.getters.isItemInCart({ title, price, image, id ,quantity: 1 })){
+        this.$store.commit("ADD_ITEM", { title, price, image, id ,quantity: 1 })
+      }
+      
     }
   },
   mounted () {

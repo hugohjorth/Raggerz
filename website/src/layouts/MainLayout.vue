@@ -8,11 +8,46 @@
             
           </div>
             American Bakery
+          <q-btn
+          round
+          dense
+          @click="alert = !alert"
+          icon="shopping_cart"
+          class="shoppingCart float-right q-mr-sm"
+          size="md"
+          />
         </q-toolbar-title>
-
-        <div></div>
       </q-toolbar>
     </q-header>
+
+    <q-dialog v-model="alert">
+      <q-card>
+        <div
+            class="q-px-lg"
+            v-for="(n,index) in $store.state.cart"
+            :key="index"
+          >
+
+          <img height="30px" width="30px" class="rounded-borders q-mr-md q-mt-md" :src="n.image"/>
+          <h8 clas="text-center"> {{n.title}} </h8>
+          <h8 class="q-ml-md "> Pris : {{n.price}} </h8>
+            
+          <h8 class="q-ml-md">Antal {{n.quantity}} </h8>
+          <q-btn
+          color="red"
+          label="-"
+          class="q-mr-lg"
+          @click="deacrease(n.id)"
+        />
+        <q-btn
+          color="green"
+          class="q-mr-lg"
+          label="+"
+          @click="increase(n.id)"
+        />
+          </div>
+      </q-card>
+    </q-dialog>
 
     <q-drawer
     v-model="show"
@@ -27,7 +62,12 @@
           <q-btn color="grey" class="text-black q-mb-sm" @click="changePage('/')">Butik</q-btn>
           <q-btn color="grey" class="text-black q-mb-sm" @click="changePage('about')">Om oss</q-btn>
           <q-btn color="grey" class="text-black q-mb-sm" @click="changePage('staff')">Personal</q-btn>
-          <q-btn color="grey" class="text-black fixed-bottom q-ma-md q-ml-xl" @click="view()">Logga in</q-btn>
+          <img  style="max-height: 250px; width: 100%" class="fixed-center q-mb-xl" :src="'https://moneyarcher.com/se/wp-content/uploads/2020/03/Screenshot-2020-03-09-at-10.57.00.png'">
+          <q-btn color="grey" v-if="!$store.getters.isLoggedIn" class="text-black fixed-bottom q-ma-sm q-ml-xl q-mt-xl" @click="view()">Logga in</q-btn>
+          <div class="text-black fixed-bottom q-ma-sm q-mt-xl" v-else>
+            
+            <img height="50px" width="50px" class="rounded-borders" :src="$store.state.user.avatar">
+          </div>
         </div>
         
       </q-scroll-area>
@@ -48,7 +88,9 @@ export default {
     return {
       show: false,
       tab: this.$route.path.replace('/', ''),
-      showLogin: false
+      showLogin: false,
+      alert: false,
+      numb: 1
     }
   },
 
@@ -64,7 +106,15 @@ export default {
     },
     view () {
       this.showLogin = true
-    }
+    },
+    increase (id) {
+      this.numb++
+      this.$store.commit("UPDATE_ITEM", [id, this.numb])
+    },
+    deacrease (id) {
+      this.numb--
+      this.$store.commit("UPDATE_ITEM", [id, this.numb])
+    },
   }
 }
 </script>

@@ -8,10 +8,10 @@
           <q-card class="my-card q-ma-lg" flat bordered>
               <img style="max-height: 250px; width: 100%" :src="peeps.avatar">
               <q-card-section>
-                  <div class="text-center text-h6">{{ peeps.name }}</div>
-                  <div class="text-center text-h6">{{ peeps.role }}</div>
-                  <div class="text-center text-h6">{{ peeps.phone }}</div>
-                  <div class="text-center text-h6">{{ peeps.email }}</div>
+                  <div class="text-center text-h6 text-white">{{ peeps.name }}</div>
+                  <div class="text-center text-h6 text-white">{{ peeps.role }}</div>
+                  <div class="text-center text-h6 text-white">{{ peeps.phone }}</div>
+                  <div class="text-center text-h6 text-white">{{ peeps.email }}</div>
               </q-card-section>
           </q-card>
       </div>

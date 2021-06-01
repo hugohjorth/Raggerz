@@ -4,7 +4,7 @@
                         <q-card-actions vertical align="center">
                 <q-input filled v-model="username" label="Användarnamn" class="q-ma-md" bg-color="yellow" />
                 <q-input filled v-model="password" label="Lösenord" bg-color="yellow" type="password" />
-                <q-btn color="yellow" class="text-black q-ma-md float-left">Logga In</q-btn>
+                <q-btn @click="login" color="yellow" class="text-black q-ma-md float-left">Logga In</q-btn>
             </q-card-actions>
         </q-card>
     </q-dialog>
@@ -34,9 +34,15 @@ export default {
           this.$emit('update:show', this.view)
       },
       login () {
-          for( var i = 0; i < this.userInfo.length; i++ ) {
-
-          }
+          this.$store.dispatch("signIn", [this.username, this.password]).then(status => {
+              if (status){
+                  console.log("Success")
+                    this.view = false
+                    this.$emit('update:show', this.view)
+              } else {
+                  console.log("Wrong password")
+              }
+          })
       }
   },
 
