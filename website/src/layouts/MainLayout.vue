@@ -27,7 +27,7 @@
           <q-btn color="grey" class="text-black q-mb-sm" @click="changePage('/')">Butik</q-btn>
           <q-btn color="grey" class="text-black q-mb-sm" @click="changePage('about')">Om oss</q-btn>
           <q-btn color="grey" class="text-black q-mb-sm" @click="changePage('staff')">Personal</q-btn>
-          <q-btn color="grey" class="text-black fixed-bottom q-ma-md q-ml-xl">Logga in</q-btn>
+          <q-btn color="grey" class="text-black fixed-bottom q-ma-md q-ml-xl" @click="view()">Logga in</q-btn>
         </div>
         
       </q-scroll-area>
@@ -35,10 +35,12 @@
         <q-page-container>
       <router-view />
     </q-page-container>
+    <login-dialog :Show.sync="showLogin"/>
   </q-layout>
 </template>
 
 <script>
+import loginDialog from '../dialogs/loginDialog.vue'
 
 export default {
   name: 'MainLayout',
@@ -46,8 +48,12 @@ export default {
     return {
       show: false,
       tab: this.$route.path.replace('/', ''),
-      alert: false
+      showLogin: false
     }
+  },
+
+  components: {
+    loginDialog
   },
 
   methods: {
@@ -55,6 +61,9 @@ export default {
       if (this.tab !== route) {
         this.$router.push(route).catch(e => {})
       }
+    },
+    view () {
+      this.showLogin = true
     }
   }
 }
